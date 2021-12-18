@@ -1,6 +1,7 @@
 from PIL import Image
 from table import Table
 import os.path
+from point import Point
 
 
 class Img:
@@ -23,7 +24,7 @@ class Img:
         x = 0
         y = 0
         for pixel in imgdata:
-            table.modify((x, y), pixel[rgb])
+            table.modify(Point(x, y), pixel[rgb])
             if x == imgWidth - 1:
                 x = 0
                 y += 1
