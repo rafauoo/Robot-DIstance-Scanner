@@ -56,17 +56,3 @@ class Table:
     def value(self, point):
         x, y = point
         return self._table[y][x]
-
-
-def main():
-    table = Table(15, 15)
-    print("\n")
-    table.bresenham((3, 2), (6, 13))
-    table.print_table()
-    print(table.value((3, 2)))
-
-
-
-if __name__ == "__main__":
-    main()
-

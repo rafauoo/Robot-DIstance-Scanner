@@ -1,5 +1,6 @@
 from PIL import Image
 from table import Table
+import os.path
 
 
 class Img:
@@ -13,7 +14,8 @@ class Img:
         return self._path
 
     def get_pixel_values(self, rgb):
-        img = Image.open(self._path)
+        script_dir = os.path.dirname(os.path.abspath(__file__))
+        img = Image.open(os.path.join(script_dir, self._path))
         imgWidth, imgHeight = img.size
         img = img.convert("RGB")
         imgdata = img.getdata()
@@ -37,7 +39,7 @@ class Img:
 
     def pixel_values_B(self):
         return self._pixel_values_B
-    
+
     def print_pixel_values(self):
         r = self.pixel_values_R()
         g = self.pixel_values_G()
@@ -48,16 +50,3 @@ class Img:
         print("\n")
         b.print_table()
         print("\n")
-
-    def import_image(self, path):
-        
-
-img = Img("testowy.png")
-img.print_pixel_values()
-
-        
-
-
-
-
-
