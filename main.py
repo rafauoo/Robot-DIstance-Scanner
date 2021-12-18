@@ -21,7 +21,7 @@ class Table:
 
     def modify(self, point):
         x, y = point
-        self._table[y][x] = "X"
+        self._table[y][x] = "x"
 
     def bresenham(self, point1, point2):
         x1, y1 = point1
@@ -54,10 +54,9 @@ class Table:
 
 
 def main():
-    table = Table(30, 30)
-    table.print_table()
+    table = Table(15, 15)
     print("\n")
-    table.bresenham((6, 2), (27, 18))
+    table.bresenham((3, 2), (6, 13))
     table.print_table()
 
 
