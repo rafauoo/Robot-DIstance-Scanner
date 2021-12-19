@@ -57,16 +57,7 @@ class Program:
         return Point(x, y)
 
     def create_lines(self, plusminus, step, radius, rgb):
-        r, g, b = rgb
         for angle_diff in range(0, plusminus*2 + 1, step):
             angle_diff -= plusminus
             point2 = self.calculate_angle_point(angle_diff, radius)
-            self._board.pixel_values_R().bresenham(self._robot_pos, point2, r)
-        for angle_diff in range(0, plusminus*2 + 1, step):
-            angle_diff -= plusminus
-            point2 = self.calculate_angle_point(angle_diff, radius)
-            self._board.pixel_values_G().bresenham(self._robot_pos, point2, g)
-        for angle_diff in range(0, plusminus*2 + 1, step):
-            angle_diff -= plusminus
-            point2 = self.calculate_angle_point(angle_diff, radius)
-            self._board.pixel_values_B().bresenham(self._robot_pos, point2, b)
+            self._board.pixel_values().bresenham(self._robot_pos, point2, rgb)

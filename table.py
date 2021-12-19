@@ -12,7 +12,7 @@ class Table:
         for y in range(size_y):
             table.append([])
             for x in range(size_x):
-                table[y].append(0)
+                table[y].append((0, 0, 0))
         return table
 
     def print_table(self):
@@ -47,12 +47,12 @@ class Table:
                 e -= dy
                 if e < 0:
                     y1 += y_step
-                    if self.value(Point(x1 - x_step, y1)) == 0:
+                    if self.value(Point(x1 - x_step, y1)) == (0, 0, 0):
                         return
-                    if self.value(Point(x1, y1 - y_step)) == 0:
+                    if self.value(Point(x1, y1 - y_step)) == (0, 0, 0):
                         return
                     e += dx
-                if self.value(Point(x1, y1)) == 0:
+                if self.value(Point(x1, y1)) == (0, 0, 0):
                     return
                 self.modify(Point(x1, y1), value)
         else:
@@ -62,12 +62,12 @@ class Table:
                 e -= dx
                 if e < 0:
                     x1 += x_step
-                    if self.value(Point(x1 - x_step, y1)) == 0:
+                    if self.value(Point(x1 - x_step, y1)) == (0, 0, 0):
                         return
-                    if self.value(Point(x1, y1 - y_step)) == 0:
+                    if self.value(Point(x1, y1 - y_step)) == (0, 0, 0):
                         return
                     e += dy
-                if self.value(Point(x1, y1)) == 0:
+                if self.value(Point(x1, y1)) == (0, 0, 0):
                     return
                 self.modify(Point(x1, y1), value)
 
