@@ -35,7 +35,7 @@ class GUI:
         self._label.image = photo
 
 
-class ConsoleInterface():
+class ConsoleInterface:
     def __init__(self, path) -> None:
         self._path = path
         self._robot_pos = Point(0, 0)

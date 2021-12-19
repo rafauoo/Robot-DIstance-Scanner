@@ -21,11 +21,13 @@ class Program:
             a = math.tan(angle_rad) * -1
         b = self._robot_pos.y() - a * self._robot_pos.x()
         if angle == 270:
-            ret_y = self._robot_pos.y() + radius if self._robot_pos.y() + radius <= self._board.height() else 0
-            return Point(self._robot_pos.x(), ret_y)
+            if self._robot_pos.y() + radius <= self._board.height():
+                return Point(self._robot_pos.x(), self._robot_pos.y() + radius)
+            return Point(self._robot_pos.x(), 0)
         if angle == 90:
-            ret_y = self._robot_pos.y() - radius if self._robot_pos.y() - radius >= 0 else 0
-            return Point(self._robot_pos.x(), ret_y)
+            if self._robot_pos.y() - radius >= 0:
+                return Point(self._robot_pos.x(), self._robot_pos.y() - radius)
+            return Point(self._robot_pos.x(), 0)
         if angle < 90 or angle > 270:
             diff = 1
         if angle > 90 and angle < 270:
