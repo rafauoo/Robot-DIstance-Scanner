@@ -1,11 +1,5 @@
-from table import Table
-from image import Img
-from point import Point
-from program import Program
-import tkinter as tk
-from tkinter.simpledialog import askinteger
-from PIL import Image, ImageTk
 from gui import GUI
+
 
 def main():
     GUI("otoczenie.png")
