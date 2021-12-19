@@ -1,15 +1,15 @@
 from table import Table
 from image import Img
 from point import Point
+from program import Program
 
 
 def main():
-    table = Table(15, 15)
-    print("\n")
-    table.bresenham(Point(3, 2), Point(6, 13), 200)
-    table.print_table()
-    img = Img("testowy.png")
-    img.print_pixel_values()
+    image = Img("otoczenie.png")
+    program = Program(image, Point(130, 86), 35)
+    rgb = (255, 2, 2)
+    program.create_lines(90, 10, 60, rgb)
+    image.export("wynik")
 
 
 if __name__ == "__main__":

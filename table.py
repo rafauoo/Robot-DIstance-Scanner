@@ -47,7 +47,13 @@ class Table:
                 e -= dy
                 if e < 0:
                     y1 += y_step
+                    if self.value(Point(x1 - x_step, y1)) == 0:
+                        return
+                    if self.value(Point(x1, y1 - y_step)) == 0:
+                        return
                     e += dx
+                if self.value(Point(x1, y1)) == 0:
+                    return
                 self.modify(Point(x1, y1), value)
         else:
             e = dy / 2
@@ -56,9 +62,16 @@ class Table:
                 e -= dx
                 if e < 0:
                     x1 += x_step
+                    if self.value(Point(x1 - x_step, y1)) == 0:
+                        return
+                    if self.value(Point(x1, y1 - y_step)) == 0:
+                        return
                     e += dy
+                if self.value(Point(x1, y1)) == 0:
+                    return
                 self.modify(Point(x1, y1), value)
 
     def value(self, point):
-        x, y = point
+        x = point.x()
+        y = point.y()
         return self._table[y][x]

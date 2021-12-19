@@ -13,11 +13,19 @@ class Img:
 
     def path(self):
         return self._path
+    
+    def height(self):
+        return self._height
+
+    def width(self):
+        return self._width
 
     def get_pixel_values(self, rgb):
         script_dir = os.path.dirname(os.path.abspath(__file__))
         img = Image.open(os.path.join(script_dir, self._path))
         imgWidth, imgHeight = img.size
+        self._width = imgWidth
+        self._height = imgHeight
         img = img.convert("RGB")
         imgdata = img.getdata()
         table = Table(imgWidth, imgHeight)
@@ -51,3 +59,17 @@ class Img:
         print("\n")
         b.print_table()
         print("\n")
+    
+    def export(self, name):
+        script_dir = os.path.dirname(os.path.abspath(__file__))
+        img = Image.open(os.path.join(script_dir, self._path))
+        img = img.convert("RGB")
+        pixel_map = img.load()
+        print(pixel_map[1, 2])
+        for y in range(self._height):
+            for x in range(self._width):
+                r = self.pixel_values_R().value(Point(x, y))
+                g = self.pixel_values_G().value(Point(x, y))
+                b = self.pixel_values_B().value(Point(x, y))
+                pixel_map[x, y] = r, g, b
+        img.save(f"{name}.png", format="png")
