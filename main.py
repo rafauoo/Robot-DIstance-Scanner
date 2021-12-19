@@ -1,37 +1,20 @@
-from gui import GUI
+from interface import GUI, ConsoleInterface
 
 
 def main():
-    GUI("otoczenie.png")
-    # global root
-    # global label
-    # root = tk.Tk()
-    # photo = tk.PhotoImage(file="otoczenie.png")
-    # label = tk.Label(root, image=photo)
-    # label.pack()
-    # root.bind("<Button-1>", onclick)
-    # root.mainloop()
-
-# def onclick(e):
-#     x = e.x
-#     y = e.y
-#     global root
-#     global label
-#     robot_angle = askinteger("Input", "Input robot angle")
-#     image = Img("otoczenie.png")
-#     program = Program(image, Point(x, y), robot_angle)
-#     rgb = (255, 2, 2)
-#     # fov = askinteger("Input", "Input robot's FOV")
-#     # angle_diff = askinteger("Input", "Input angle diff")
-#     # radius = askinteger("Input", "Input laser radius")
-#     fov = 90
-#     angle_diff = 10
-#     radius = 60
-#     program.create_lines(fov, angle_diff, radius, rgb)
-#     image.export("wynik")
-#     photo = tk.PhotoImage(file="wynik.png")
-#     label.configure(image=photo)
-#     label.image = photo
+    filename = input("Enter file name: ")
+    choice = input("Choose interface (1 for console, 2 for GUI): ")
+    if choice == "2":
+        GUI(filename)
+    if choice == "1":
+        console = ConsoleInterface(filename)
+        while True:
+            x = int(input("Enter robot position (x): "))
+            y = int(input("Enter robot position (y): "))
+            console.set_robot_pos(x, y)
+            angle = int(input("Enter robot angle: "))
+            console.set_robot_angle(angle)
+            console.run()
 
 
 if __name__ == "__main__":

@@ -1,5 +1,4 @@
 from image import Img
-from table import Table
 from point import Point
 import math
 

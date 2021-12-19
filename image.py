@@ -11,13 +11,13 @@ class Img:
 
     def path(self):
         return self._path
-    
+
     def height(self):
         return self._height
 
     def width(self):
         return self._width
-    
+
     def handle(self):
         return self._handle
 
@@ -54,7 +54,6 @@ class Img:
         img = Image.open(os.path.join(script_dir, self._path))
         img = img.convert("RGB")
         pixel_map = img.load()
-        print(pixel_map[1, 2])
         for y in range(self._height):
             for x in range(self._width):
                 r, g, b = self.pixel_values().value(Point(x, y))
