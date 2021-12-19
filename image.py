@@ -19,10 +19,14 @@ class Img:
 
     def width(self):
         return self._width
+    
+    def handle(self):
+        return self._handle
 
     def get_pixel_values(self, rgb):
         script_dir = os.path.dirname(os.path.abspath(__file__))
         img = Image.open(os.path.join(script_dir, self._path))
+        self._handle = img
         imgWidth, imgHeight = img.size
         self._width = imgWidth
         self._height = imgHeight
