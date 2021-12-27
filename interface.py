@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter.simpledialog import askinteger
 from image import Img
 from point import Point
+import config as CFG
 from program import Program
 
 
@@ -21,13 +22,13 @@ class GUI:
         robot_angle = askinteger("Input", "Input robot angle")
         image = Img(self._path)
         program = Program(image, Point(x, y), robot_angle)
-        rgb = (255, 0, 0)
+        rgb = CFG.line_colour
         # fov = askinteger("Input", "Input robot's FOV")
         # angle_diff = askinteger("Input", "Input angle diff")
         # radius = askinteger("Input", "Input laser radius")
-        fov = 90
-        angle_diff = 10
-        radius = 60
+        fov = CFG.fov
+        angle_diff = CFG.angle_diff
+        radius = CFG.radius
         program.create_lines(fov, angle_diff, radius, rgb)
         image.export("wynik")
         photo = tk.PhotoImage(file="wynik.png")

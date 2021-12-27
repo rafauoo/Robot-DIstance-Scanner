@@ -9,12 +9,16 @@ class Program:
         self._robot_pos = robot_pos
         self._robot_angle = robot_angle
 
-    def calculate_angle_point(self, angle_diff, radius):
+    def check_angle(self, angle_diff):
         angle = self._robot_angle + angle_diff
         if angle < 0:
             angle += 360
         if angle >= 360:
             angle -= 360
+        return angle
+
+    def calculate_point_for_angle(self, angle_diff, radius):
+        angle = self.check_angle(angle_diff)
         angle_rad = angle / 180 * math.pi
         a = 0
         if angle != 90 and angle != 270:
@@ -32,6 +36,9 @@ class Program:
             diff = 1
         if angle > 90 and angle < 270:
             diff = -1
+        return self.calculate_point_function(radius, diff, a, b)
+
+    def calculate_point_function(self, radius, diff, a, b):
         distance = 0
         x = self._robot_pos.x()
         y = self._robot_pos.y()
@@ -43,22 +50,27 @@ class Program:
             x += diff
             y = a * x + b
             y = round(y)
+            if not self.check_point_in_board(x, y):
+                return Point(last_x, last_y)
             distance = self._robot_pos.distance(Point(x, y))
         if abs(last_distance - radius) < abs(distance - radius):
             x = last_x
             y = last_y
-        if x < 0:
-            x = 0
-        if y < 0:
-            y = 0
-        if y > self._board.height():
-            y = self._board.height()
-        if x > self._board.width():
-            x = self._board.width()
         return Point(x, y)
+
+    def check_point_in_board(self, x, y):
+        if x < 0:
+            return False
+        if y < 0:
+            return False
+        if y >= self._board.height():
+            return False
+        if x >= self._board.width():
+            return False
+        return True
 
     def create_lines(self, plusminus, step, radius, rgb):
         for angle_diff in range(0, plusminus*2 + 1, step):
             angle_diff -= plusminus
-            point2 = self.calculate_angle_point(angle_diff, radius)
+            point2 = self.calculate_point_for_angle(angle_diff, radius)
             self._board.pixel_values().bresenham(self._robot_pos, point2, rgb)

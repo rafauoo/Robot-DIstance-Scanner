@@ -2,7 +2,8 @@ from interface import GUI, ConsoleInterface
 
 
 def main():
-    filename = input("Enter file name: ")
+    # filename = input("Enter file name: ")
+    filename = "otoczenie.png"
     choice = input("Choose interface (1 for console, 2 for GUI): ")
     if choice == "2":
         GUI(filename)
