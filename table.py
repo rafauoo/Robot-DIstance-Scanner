@@ -1,4 +1,5 @@
 from point import Point
+import config as CFG
 
 
 class Table:
@@ -7,12 +8,22 @@ class Table:
         self._size_y = size_y
         self._table = self.create_table(size_x, size_y)
 
+    def size_x(self):
+        return self._size_x
+
+    def size_y(self):
+        return self._size_y
+
+    def table(self):
+        return self._table
+
     def create_table(self, size_x, size_y):
         table = []
+        background_color = CFG.background_colour
         for y in range(size_y):
             table.append([])
             for x in range(size_x):
-                table[y].append((0, 0, 0))
+                table[y].append(background_color)
         return table
 
     def print_table(self):
