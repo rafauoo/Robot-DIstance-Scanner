@@ -62,7 +62,8 @@ def test_table_bresenham():
     point1 = Point(0, 0)
     point2 = Point(6, 5)
     OO = (0, 0, 255)
-    table.bresenham(point1, point2, OO)
+    last_pt = table.bresenham(point1, point2, OO)
+    assert last_pt.x() == -1
     assert table.table() == [[OO, bg, bg, bg, bg, bg, bg, bg],
                              [bg, OO, bg, bg, bg, bg, bg, bg],
                              [bg, bg, OO, OO, bg, bg, bg, bg],
@@ -87,7 +88,8 @@ def test_table_bresenham_2():
     point1 = Point(4, 3)
     point2 = Point(1, 0)
     OO = (0, 0, 255)
-    table.bresenham(point1, point2, OO)
+    last_pt = table.bresenham(point1, point2, OO)
+    assert last_pt.x() == -1
     assert table.table() == [[bg, OO, bg, bg, bg, bg, bg, bg],
                              [bg, bg, OO, bg, bg, bg, bg, bg],
                              [bg, bg, bg, OO, bg, bg, bg, bg],
@@ -112,7 +114,8 @@ def test_table_bresenham_3():
     point1 = Point(6, 0)
     point2 = Point(0, 3)
     OO = (0, 0, 255)
-    table.bresenham(point1, point2, OO)
+    last_pt = table.bresenham(point1, point2, OO)
+    assert last_pt.x() == -1
     assert table.table() == [[bg, bg, bg, bg, bg, OO, OO, bg],
                              [bg, bg, bg, OO, OO, bg, bg, bg],
                              [bg, OO, OO, bg, bg, bg, bg, bg],
@@ -140,7 +143,9 @@ def test_table_bresenham_wall():
     point1 = Point(0, 0)
     point2 = Point(6, 5)
     OO = (0, 0, 255)
-    table.bresenham(point1, point2, OO)
+    last_pt = table.bresenham(point1, point2, OO)
+    assert last_pt.x() == 3
+    assert last_pt.y() == 2
     assert table.table() == [[OO, bg, bg, bg, WA, bg, bg, bg],
                              [bg, OO, bg, bg, WA, bg, bg, bg],
                              [bg, bg, OO, OO, WA, bg, bg, bg],

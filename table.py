@@ -63,9 +63,13 @@ class Table:
             while x1 != x2 or y1 != y2:
                 last_pt = Point(x1, y1)
                 x1 += x_step
+                if x1 >= self.size_x() or x1 < 0:
+                    return last_pt
                 e -= dy
                 if e < 0:
                     y1 += y_step
+                    if y1 >= self.size_y() or y1 < 0:
+                        return last_pt
                     if self.value(Point(x1 - x_step, y1)) == (0, 0, 0):
                         return last_pt
                     if self.value(Point(x1, y1 - y_step)) == (0, 0, 0):
@@ -80,9 +84,13 @@ class Table:
             while x1 != x2 or y1 != y2:
                 last_pt = Point(x1, y1)
                 y1 += y_step
+                if y1 >= self.size_y() or y1 < 0:
+                    return last_pt
                 e -= dx
                 if e < 0:
                     x1 += x_step
+                    if x1 >= self.size_x() or x1 < 0:
+                        return last_pt
                     if self.value(Point(x1 - x_step, y1)) == (0, 0, 0):
                         return last_pt
                     if self.value(Point(x1, y1 - y_step)) == (0, 0, 0):

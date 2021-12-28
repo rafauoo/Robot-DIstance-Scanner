@@ -30,7 +30,7 @@ class GUI:
         fov = CFG.fov
         angle_diff = CFG.angle_diff
         radius = CFG.radius
-        print(program.create_lines(fov, angle_diff, radius, rgb))
+        program.create_lines(fov, angle_diff, radius, rgb)
         image.export("wynik")
         photo = tk.PhotoImage(file="wynik.png")
         self._label.configure(image=photo)
@@ -53,10 +53,10 @@ class ConsoleInterface:
     def run(self):
         image = Img(self._img_path)
         program = Program(image, self._robot_pos, self._robot_angle)
-        rgb = (255, 0, 0)
-        fov = 90
-        angle_diff = 10
-        radius = 60
+        rgb = CFG.line_colour
+        fov = CFG.fov
+        angle_diff = CFG.angle_diff
+        radius = CFG.radius
         line_len = program.create_lines(fov, angle_diff, radius, rgb)
-        export_data(line_len, "wyniki.txt")
+        export_data(reversed(line_len), "wyniki.txt")
         image.export("symulacja")
