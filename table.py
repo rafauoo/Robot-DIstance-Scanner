@@ -2,6 +2,13 @@ from point import Point
 import config as CFG
 
 
+def swap(a, b):
+    c = a
+    a = b
+    b = c
+    return a, b
+
+
 class Table:
     def __init__(self, size_x, size_y) -> None:
         self._size_x = size_x
@@ -54,33 +61,37 @@ class Table:
         if dx > dy:
             e = dx / 2
             while x1 != x2 or y1 != y2:
+                last_pt = Point(x1, y1)
                 x1 += x_step
                 e -= dy
                 if e < 0:
                     y1 += y_step
                     if self.value(Point(x1 - x_step, y1)) == (0, 0, 0):
-                        return
+                        return last_pt
                     if self.value(Point(x1, y1 - y_step)) == (0, 0, 0):
-                        return
+                        return last_pt
                     e += dx
                 if self.value(Point(x1, y1)) == (0, 0, 0):
-                    return
+                    return last_pt
                 self.modify(Point(x1, y1), value)
+            return Point(-1, -1)
         else:
             e = dy / 2
             while x1 != x2 or y1 != y2:
+                last_pt = Point(x1, y1)
                 y1 += y_step
                 e -= dx
                 if e < 0:
                     x1 += x_step
                     if self.value(Point(x1 - x_step, y1)) == (0, 0, 0):
-                        return
+                        return last_pt
                     if self.value(Point(x1, y1 - y_step)) == (0, 0, 0):
-                        return
+                        return last_pt
                     e += dy
                 if self.value(Point(x1, y1)) == (0, 0, 0):
-                    return
+                    return last_pt
                 self.modify(Point(x1, y1), value)
+            return Point(-1, -1)
 
     def value(self, point):
         x = point.x()

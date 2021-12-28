@@ -4,6 +4,7 @@ from image import Img
 from point import Point
 import config as CFG
 from program import Program
+from io_data import export_data
 
 
 class GUI:
@@ -29,7 +30,7 @@ class GUI:
         fov = CFG.fov
         angle_diff = CFG.angle_diff
         radius = CFG.radius
-        program.create_lines(fov, angle_diff, radius, rgb)
+        print(program.create_lines(fov, angle_diff, radius, rgb))
         image.export("wynik")
         photo = tk.PhotoImage(file="wynik.png")
         self._label.configure(image=photo)
@@ -37,8 +38,8 @@ class GUI:
 
 
 class ConsoleInterface:
-    def __init__(self, path) -> None:
-        self._path = path
+    def __init__(self, img_path) -> None:
+        self._img_path = img_path
         self._robot_pos = Point(0, 0)
         self._robot_angle = 0
 
@@ -50,11 +51,12 @@ class ConsoleInterface:
         self._robot_angle = angle
 
     def run(self):
-        image = Img(self._path)
+        image = Img(self._img_path)
         program = Program(image, self._robot_pos, self._robot_angle)
         rgb = (255, 0, 0)
         fov = 90
         angle_diff = 10
         radius = 60
-        program.create_lines(fov, angle_diff, radius, rgb)
-        image.export("wynik")
+        line_len = program.create_lines(fov, angle_diff, radius, rgb)
+        export_data(line_len, "wyniki.txt")
+        image.export("symulacja")

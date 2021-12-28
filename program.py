@@ -8,6 +8,16 @@ class Program:
         self._board = board
         self._robot_pos = robot_pos
         self._robot_angle = robot_angle
+        self._distances = []
+
+    def board(self):
+        return self._board
+
+    def robot_pos(self):
+        return self._robot_pos
+
+    def robot_angle(self):
+        return self._robot_angle
 
     def check_angle(self, angle_diff):
         angle = self._robot_angle + angle_diff
@@ -50,7 +60,7 @@ class Program:
             x += diff
             y = a * x + b
             y = round(y)
-            if not self.check_point_in_board(x, y):
+            if not self.check_point_in_board(Point(x, y)):
                 return Point(last_x, last_y)
             distance = self._robot_pos.distance(Point(x, y))
         if abs(last_distance - radius) < abs(distance - radius):
@@ -58,7 +68,9 @@ class Program:
             y = last_y
         return Point(x, y)
 
-    def check_point_in_board(self, x, y):
+    def check_point_in_board(self, point):
+        x = point.x()
+        y = point.y()
         if x < 0:
             return False
         if y < 0:
@@ -70,7 +82,19 @@ class Program:
         return True
 
     def create_lines(self, plusminus, step, radius, rgb):
+        distances = []
         for angle_diff in range(0, plusminus*2 + 1, step):
             angle_diff -= plusminus
-            point2 = self.calculate_point_for_angle(angle_diff, radius)
-            self._board.pixel_values().bresenham(self._robot_pos, point2, rgb)
+            pt2 = self.calculate_point_for_angle(angle_diff, radius)
+            rob_pos = self._robot_pos
+            last_pt = self._board.pixel_values().bresenham(rob_pos, pt2, rgb)
+            if last_pt.x() == -1:
+                distances.append(255)
+            else:
+                distances.append(round(rob_pos.distance(last_pt)))
+        self._distances = reversed(distances)
+        return self._distances
+
+    def distances(self):
+        return self._distances
+
