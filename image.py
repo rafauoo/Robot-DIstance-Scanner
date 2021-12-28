@@ -4,9 +4,16 @@ import os.path
 from point import Point
 
 
+class WrongFileError(Exception):
+    pass
+
+
 class Img:
     def __init__(self, path) -> None:
         self._path = path
+        self._handle = None
+        self._width = 0
+        self._height = 0
         self._pixel_values = self.get_pixel_values()
 
     def path(self):
@@ -22,8 +29,11 @@ class Img:
         return self._handle
 
     def get_pixel_values(self):
-        script_dir = os.path.dirname(os.path.abspath(__file__))
-        img = Image.open(os.path.join(script_dir, self._path))
+        try:
+            script_dir = os.path.dirname(os.path.abspath(__file__))
+            img = Image.open(os.path.join(script_dir, self._path))
+        except FileNotFoundError:
+            raise WrongFileError
         self._handle = img
         imgWidth, imgHeight = img.size
         self._width = imgWidth
