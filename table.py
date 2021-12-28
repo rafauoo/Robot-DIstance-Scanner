@@ -70,12 +70,12 @@ class Table:
                     y1 += y_step
                     if y1 >= self.size_y() or y1 < 0:
                         return last_pt
-                    if self.value(Point(x1 - x_step, y1)) == (0, 0, 0):
+                    if self.value(Point(x1 - x_step, y1)) == CFG.wall_colour:
                         return last_pt
-                    if self.value(Point(x1, y1 - y_step)) == (0, 0, 0):
+                    if self.value(Point(x1, y1 - y_step)) == CFG.wall_colour:
                         return last_pt
                     e += dx
-                if self.value(Point(x1, y1)) == (0, 0, 0):
+                if self.value(Point(x1, y1)) == CFG.wall_colour:
                     return last_pt
                 self.modify(Point(x1, y1), value)
             return Point(-1, -1)
@@ -91,12 +91,12 @@ class Table:
                     x1 += x_step
                     if x1 >= self.size_x() or x1 < 0:
                         return last_pt
-                    if self.value(Point(x1 - x_step, y1)) == (0, 0, 0):
+                    if self.value(Point(x1 - x_step, y1)) == CFG.wall_colour:
                         return last_pt
-                    if self.value(Point(x1, y1 - y_step)) == (0, 0, 0):
+                    if self.value(Point(x1, y1 - y_step)) == CFG.wall_colour:
                         return last_pt
                     e += dy
-                if self.value(Point(x1, y1)) == (0, 0, 0):
+                if self.value(Point(x1, y1)) == CFG.wall_colour:
                     return last_pt
                 self.modify(Point(x1, y1), value)
             return Point(-1, -1)
