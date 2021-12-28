@@ -11,7 +11,12 @@ from io_data import export_data
 class GUI:
     def __init__(self) -> None:
         self._root = tk.Tk()
-        self._path = fd.askopenfilename()
+        filetypes = (
+            ('Image files', '*.png'),
+            ('All files', '*.*')
+        )
+        self._path = fd.askopenfilename(title="Open image",
+                                        filetypes=filetypes)
         try:
             self._photo = tk.PhotoImage(file=self._path)
         except tk.TclError:
