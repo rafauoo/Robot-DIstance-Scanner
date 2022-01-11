@@ -10,6 +10,7 @@ class WrongFileError(Exception):
 
 class Img:
     def __init__(self, path) -> None:
+        "creates img instance"
         self._path = path
         self._handle = None
         self._width = 0
@@ -29,6 +30,7 @@ class Img:
         return self._handle
 
     def get_pixel_values(self):
+        "gets pixel RGB values from a png file and pushes it into Table"
         try:
             script_dir = os.path.dirname(os.path.abspath(__file__))
             img = Image.open(os.path.join(script_dir, self._path))
@@ -60,6 +62,7 @@ class Img:
         rgb.print_table()
 
     def export(self, name):
+        "exports pixel values into a png file"
         script_dir = os.path.dirname(os.path.abspath(__file__))
         img = Image.open(os.path.join(script_dir, self._path))
         img = img.convert("RGB")

@@ -11,6 +11,7 @@ def swap(a, b):
 
 class Table:
     def __init__(self, size_x, size_y) -> None:
+        "creates instance of table"
         self._size_x = size_x
         self._size_y = size_y
         self._table = self.create_table(size_x, size_y)
@@ -25,6 +26,7 @@ class Table:
         return self._table
 
     def create_table(self, size_x, size_y):
+        "creating empty table"
         table = []
         background_color = CFG.background_colour
         for y in range(size_y):
@@ -46,7 +48,12 @@ class Table:
         y = point.y()
         self._table[y][x] = value
 
-    def bresenham(self, point1, point2, value):
+    def bresenham(self, point1: Point, point2: Point, value):
+        """
+        heart of whole project,
+        it draws a line from point1 to point2
+        with colour given by value (RGB)
+        """
         x1 = point1.x()
         y1 = point1.y()
         x2 = point2.x()

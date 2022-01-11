@@ -3,6 +3,7 @@ from image import WrongFileError
 
 
 def take_robot_data(path):
+    "takes robot data from txt file"
     try:
         script_dir = os.path.dirname(os.path.abspath(__file__))
         with open(os.path.join(script_dir, path), "r") as txt:
@@ -15,6 +16,7 @@ def take_robot_data(path):
 
 
 def export_data(data, path):
+    "exports robot data to txt file"
     script_dir = os.path.dirname(os.path.abspath(__file__))
     with open(os.path.join(script_dir, path), "w") as txt:
         for el in data:

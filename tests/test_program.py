@@ -49,27 +49,6 @@ def test_program_check_angle_over360():
     assert program.check_angle(380) == 20
 
 
-def test_program_check_point_in_board_negative():
-    img = Img("tests/test.png")
-    robot_pos = Point(1, 5)
-    program = Program(img, robot_pos, 0)
-    assert not program.check_point_in_board(Point(-1, -1))
-
-
-def test_program_check_point_in_board_toobig():
-    img = Img("tests/test.png")
-    robot_pos = Point(1, 5)
-    program = Program(img, robot_pos, 0)
-    assert not program.check_point_in_board(Point(300, 2))
-
-
-def test_program_check_point_in_board_ok():
-    img = Img("tests/test.png")
-    robot_pos = Point(1, 5)
-    program = Program(img, robot_pos, 0)
-    assert program.check_point_in_board(Point(2, 2))
-
-
 def test_program_calculate_point_function_x_RIGHT():
     img = Img("tests/test.png")
     robot_pos = Point(5, 5)

@@ -5,6 +5,7 @@ import math
 
 class Program:
     def __init__(self, board: Img, robot_pos: Point, robot_angle) -> None:
+        "creates instance of Program"
         self._board = board
         self._robot_pos = robot_pos
         self._robot_angle = robot_angle
@@ -20,6 +21,7 @@ class Program:
         return self._robot_angle
 
     def check_angle(self, angle_diff):
+        "sets angle in [0-360) range"
         angle = self._robot_angle + angle_diff
         if angle < 0:
             angle += 360
@@ -28,6 +30,10 @@ class Program:
         return angle
 
     def calculate_point_for_angle(self, angle_diff, radius):
+        """
+        calculates point B for Bresenham
+        using angle (y=ax+b, a=tg(angle))
+        """
         angle = self.check_angle(angle_diff)
         angle_rad = angle / 180 * math.pi
         a = 0
@@ -35,13 +41,9 @@ class Program:
             a = math.tan(angle_rad) * -1
         b = self._robot_pos.y() - a * self._robot_pos.x()
         if angle == 270:
-            # if self._robot_pos.y() + radius < self._board.height():
             return Point(self._robot_pos.x(), self._robot_pos.y() + radius)
-            # return Point(self._robot_pos.x(), self._board.height() - 1)
         if angle == 90:
-            # if self._robot_pos.y() - radius >= 0:
             return Point(self._robot_pos.x(), self._robot_pos.y() - radius)
-            # return Point(self._robot_pos.x(), 0)
         if angle < 90 or angle > 270:
             diff = 1
         if angle > 90 and angle < 270:
@@ -49,40 +51,28 @@ class Program:
         return self.calculate_point_function(radius, diff, a, b)
 
     def calculate_point_function(self, radius, diff, a, b):
-        "diff can be 1 or -1"
+        """
+        diff can be 1 or -1,
+        calculates point B for Bresenham
+        using function (y=ax+b)
+        """
         distance = 0
         x = self._robot_pos.x()
         y = self._robot_pos.y()
         last_x, last_y = (x, y)
         while distance <= radius:
-            # last_distance = distance
             last_x = x
             last_y = y
             x += diff
             y = a * x + b
             y = round(y)
-            # if not self.check_point_in_board(Point(x, y)):
-            #     return Point(last_x, last_y)
             distance = self._robot_pos.distance(Point(x, y))
-        # if abs(last_distance - radius) < abs(distance - radius):
         x = last_x
         y = last_y
         return Point(x, y)
 
-    def check_point_in_board(self, point):
-        x = point.x()
-        y = point.y()
-        if x < 0:
-            return False
-        if y < 0:
-            return False
-        if y >= self._board.height():
-            return False
-        if x >= self._board.width():
-            return False
-        return True
-
     def create_lines(self, fov, step, radius, rgb):
+        "creates multiple lines with bresenham"
         distances = []
         for angle_diff in range(0, fov*2 + 1, step):
             angle_diff -= fov

@@ -10,6 +10,7 @@ from io_data import export_data
 
 class GUI:
     def __init__(self) -> None:
+        "creates GUI"
         self._root = tk.Tk()
         filetypes = (
             ('Image files', '*.png'),
@@ -28,15 +29,13 @@ class GUI:
         self._root.mainloop()
 
     def onclick(self, e):
+        "runs whole program while LMB on image"
         x = e.x
         y = e.y
         robot_angle = askinteger("Input", "Input robot angle")
         image = Img(self._path)
         program = Program(image, Point(x, y), robot_angle)
         rgb = CFG.line_colour
-        # fov = askinteger("Input", "Input robot's FOV")
-        # angle_diff = askinteger("Input", "Input angle diff")
-        # radius = askinteger("Input", "Input laser radius")
         fov = CFG.fov
         angle_diff = CFG.angle_diff
         radius = CFG.radius
@@ -49,6 +48,7 @@ class GUI:
 
 class ConsoleInterface:
     def __init__(self, img_path) -> None:
+        "creates console interface"
         self._img_path = img_path
         self._robot_pos = Point(0, 0)
         self._robot_angle = 0
@@ -62,6 +62,7 @@ class ConsoleInterface:
         self._robot_angle = angle
 
     def run(self):
+        "runs whole program"
         program = Program(self._image, self._robot_pos, self._robot_angle)
         rgb = CFG.line_colour
         fov = CFG.fov
