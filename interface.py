@@ -39,7 +39,8 @@ class GUI:
         fov = CFG.fov
         angle_diff = CFG.angle_diff
         radius = CFG.radius
-        program.create_lines(fov, angle_diff, radius, rgb)
+        line_len = program.create_lines(fov, angle_diff, radius, rgb)
+        export_data(reversed(line_len), "wyniki.txt")
         image.export("symulacja")
         photo = tk.PhotoImage(file="symulacja.png")
         self._label.configure(image=photo)
